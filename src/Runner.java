@@ -34,12 +34,12 @@ public class Runner {
 
         while (sc.hasNextLine()){
             String IBAN = sc.nextLine().trim();
+            System.out.println(IBAN);
             boolean result = IBANValidator.checkIBAN(IBAN);
 
-            System.out.println(IBAN);
-            System.out.println(result);
-
+            //System.out.println(result);
             writer.write(IBAN+";"+ result+EOL);
+            System.out.println();
         }
 
         writer.close();
