@@ -6,6 +6,7 @@ It reads IBAN numbers from the file or they can be provided by the user
 using command line UI.
     
 ### Usage
+- Navigate too "src" folder
 
 - Compile:\
                 &nbsp; javac Runner.java
