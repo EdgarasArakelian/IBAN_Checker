@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Runner {
-    static final String outputFileName = "results.txt";
 
     public static void main(String[] args) {
         // We expecting file name to be provided otherwise we deal with user using command line
+
         if(args.length > 0) {
             try {
                 dealWithFile(args[0]);
@@ -27,17 +27,34 @@ public class Runner {
         File file = new File(fileName);
         Scanner sc = new Scanner(file);
         IBANValidator IBANValidator = new IBANValidator();
+        String EOL = System.getProperty("line.separator"); // Should work on all OS
+
+        String outputFileName = getOutputFileName(file.getName());
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
 
         while (sc.hasNextLine()){
             String IBAN = sc.nextLine().trim();
-            System.out.println(IBAN);
-            System.out.println(IBANValidator.checkIBAN(IBAN));
+            boolean result = IBANValidator.checkIBAN(IBAN);
 
-            writer.write(IBAN+";"+ IBANValidator.checkIBAN(IBAN)+"\n");
+            System.out.println(IBAN);
+            System.out.println(result);
+
+            writer.write(IBAN+";"+ result+EOL);
         }
 
         writer.close();
+    }
+
+    private static String getOutputFileName(String fileName) {
+        // Getting file name without extension:
+        int index = fileName.lastIndexOf(".");
+        String currentFileNameWithoutExtension = fileName.substring(0,index);
+
+        // Adding .out extension to the file:
+        String stringBuilder = currentFileNameWithoutExtension +
+                ".out";
+
+        return stringBuilder;
     }
 
     private static void dealWithUser() {
