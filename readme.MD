@@ -37,6 +37,8 @@ are correct IBAN codes (true) or incorrect (false).
 Parameter “filename.txt” could be either file name, 
 relative path or full path.
 
+**Note: Input file should be plain text file (single byte character file without any BOM header).**
+
 #### Examples:
 
 ##### Linux:
