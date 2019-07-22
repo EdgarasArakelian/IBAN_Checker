@@ -1,8 +1,9 @@
 # Sąskaitų numerių IBAN tikrinimas (IBAN number checker)
 
 ### Description
-This is JAVA application to check if provided IBAN numbers are correct.
-It can read IBAN numbers from the file and/or provided by the user using command line UI.
+This is JAVA application, which checks if given IBAN numbers are valid.
+It reads IBAN numbers from the file or they can be provided by the user
+using command line UI.
     
 ### Usage
 
@@ -12,15 +13,15 @@ It can read IBAN numbers from the file and/or provided by the user using command
 &nbsp; 1. Without arguments: "java Runner"\
 &nbsp; 2. With arguments: "java Runner filename.txt"
 
-Running this application without providing file name will launch
-this application with command line UI. Using command line UI
-user can enter IBAN number he wants to check himself.
+Running this application without providing any arguments will launch
+this application in command line. Using command line UI
+users can enter IBAN numbers they want to check by themselves.
 
 
-Running my application with file name, which contains
-IBAN numbers will create file called "results.txt"
-if it wasn't created before. Results file will contain information
-about each IBAN either it is correct(true) or incorrect(false).
+Running my application with file name(path), which contains
+IBAN numbers will run my application and will create file called "results.txt"
+if it wasn't created before. Results file will contain all IBAN numbers
+and either they are correct(true) or incorrect(false).
 
 ### Authors:
 Edgar Arakelian
