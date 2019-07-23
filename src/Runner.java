@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class Runner {
 
     public static void main(String[] args) {
-        // We expecting file name to be provided otherwise we deal with user using command line
-
+        // We expecting file name or path to be provided otherwise we deal with user using command line
         if(args.length > 0) {
             try {
                 dealWithFile(args[0]);
@@ -32,12 +31,13 @@ public class Runner {
         String outputFileName = getOutputFileName(file.getName());
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
 
+        // Reading file:
         while (sc.hasNextLine()){
             String IBAN = sc.nextLine().trim();
             System.out.println(IBAN);
             boolean result = IBANValidator.checkIBAN(IBAN);
 
-            //System.out.println(result);
+            // writing to file
             writer.write(IBAN+";"+ result+EOL);
             System.out.println();
         }
@@ -51,10 +51,10 @@ public class Runner {
         String currentFileNameWithoutExtension = fileName.substring(0,index);
 
         // Adding .out extension to the file:
-        String stringBuilder = currentFileNameWithoutExtension +
+        String newFileName = currentFileNameWithoutExtension +
                 ".out";
 
-        return stringBuilder;
+        return newFileName;
     }
 
     private static void dealWithUser() {

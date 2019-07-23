@@ -33,9 +33,12 @@ Application will expect one IBAN code on every line in
 input file. It will analyze those lines for compliance
 to IBAN number format rules. Application will 
 output every line from source file and indication if codes 
-are correct IBAN codes (true) or incorrect (false). 
-Parameter “filename.txt” could be either file name, 
-relative path or full path.
+are correct IBAN codes (true) or incorrect (false).
+File (end of line - EOL) is formatted according to 
+the operating system on which application is 
+running and it is independent on input file (EOL) 
+format. Parameter “filename.txt” could be 
+either file name, relative path or full path.
 
 **Note: Input file should be plain text file (single byte character file without any BOM header).**
 

@@ -5,9 +5,7 @@ public class IBANValidator {
     private final BigInteger MOD_NUMBER = new BigInteger("97");
     private final int MIN_IBAN_LENGTH = 15;
     private final int MAX_IBAN_LENGTH = 34;
-
-    private final String formatingOutput = "%19.19s\n";
-    private final String formatingOutput2 = "%19.19s%s\n";
+    private final String formattingOutput = "%14.14s%s\n";
 
     // Checks if provided IBAN is valid ...
     boolean checkIBAN(String IBAN){
@@ -26,28 +24,26 @@ public class IBANValidator {
     private boolean countryCodeCheck(String IBAN) {
         String countryCode = IBAN.substring(0,2);
 
-        for (String cCode : Locale.getISOCountries()){ // Slow point
+        for (String cCode : Locale.getISOCountries()){
             if (cCode.equals(countryCode)) {
-                //System.out.println(IBAN);
-                System.out.format(formatingOutput, "Country code: OK   ");
-                //System.out.println("-Country code: OK");
+                System.out.format(formattingOutput, "Country code:", " OK");
+
                 return true;
             }
         }
 
-        System.out.format(formatingOutput, "Country code: WRONG");
-        //System.out.println("-Country code: WRONG");
+        System.out.format(formattingOutput, "Country code:", " WRONG");
         return false;
     }
 
     //Checking that the total IBAN length is correct as per the country. If not, the IBAN is invalid
     private boolean checkIBANLength(String IBAN) {
         if (IBAN.length() < MIN_IBAN_LENGTH || IBAN.length() > MAX_IBAN_LENGTH){
-            System.out.println("Length: WRONG (detected:"+IBAN.length()+", should be: [15-34])");
+            System.out.format(formattingOutput, "Length:", " WRONG (detected:\"+IBAN.length()+\", should be: [15-34])");
             return false;
         }
-        //System.out.println("-Length: OK   ");
-        System.out.format(formatingOutput, "Length: OK   ");
+
+        System.out.format(formattingOutput, "Length:", " OK");
         return true;
     }
 
@@ -55,13 +51,13 @@ public class IBANValidator {
     // compute the remainder of that number on division by 97
     private boolean computeRemainder(BigInteger number) {
         if (number.mod(MOD_NUMBER).intValue() == 1) {
-            //System.out.println("-Remainder: OK   ");
-            System.out.format(formatingOutput, "Remainder: OK   ");
+            System.out.format(formattingOutput, "Remainder:", " OK");
+
             return true;
         }
         else {
-            //System.out.println("-Remainder: WRONG");
-            System.out.format(formatingOutput, "Remainder: WRONG");
+            System.out.format(formattingOutput, "Remainder:", " WRONG");
+
             return false;
         }
     }
@@ -81,32 +77,15 @@ public class IBANValidator {
                     convertedIBAN.append(character);
                 }
                 else {
-                    System.out.format(formatingOutput2, "CONVERSION: WRONG", " (code contains character, which is not number/letter)");
-                    //System.out.println("Error, code contains character, which is not number/letter");
-                    return new BigInteger("0");
+                    System.out.format(formattingOutput, "CONVERSION:", " WRONG (code contains character, which is not number/letter)");
+                    return new BigInteger("0"); // BigInteger == 0 is my error value
                 }
             }
         }
 
-        BigInteger num = new BigInteger("0");
-        boolean error = false;
 
-        try {
-            num = new BigInteger(convertedIBAN.toString());
-        } catch (NumberFormatException e){ // Shouldn't be the case anymore ...
-            System.out.println("Conversion error, can't convert: " + convertedIBAN.toString());
-            error = true;
-        }
-
-        if (!error){
-            System.out.format(formatingOutput, "Conversion: OK   ");
-            //System.out.println("-Conversion: OK   ");
-        }
-
-        else {
-            System.out.format(formatingOutput, "Conversion: WRONG");
-            //System.out.println("-Conversion: WRONG");
-        }
+        BigInteger num = new BigInteger(convertedIBAN.toString());
+        System.out.format(formattingOutput, "Conversion:", " OK");
 
         return num;
     }
